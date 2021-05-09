@@ -1,2 +1,3 @@
 
-
+# chinese font
+font = None
