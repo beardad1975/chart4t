@@ -5,7 +5,7 @@ import matplotlib.font_manager as fm
 from matplotlib.animation import FuncAnimation
 
 from . import common
-
+import __main__
 # chinese font
 # no use
 # plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei']
@@ -28,7 +28,7 @@ plt.style.use('seaborn')
 
 __all__ = [ 
             '繪製折線圖', '顯示圖表', 'XY尺度相同', 'Y軸顯示範圍', 'X軸顯示範圍', '設定圖表標題', 
-            '設定X軸標籤', '設定Y軸標籤',
+            '設定X軸標籤', '設定Y軸標籤', '設置折線圖動畫', '開始折線圖動畫',
             ]
 
 # init
@@ -58,6 +58,23 @@ def 設定Y軸標籤(name):
 
 
 
+
+def 設置折線圖動畫(*args, **kwargs):
+    plt.ion()
+    common.figure, common.axes = plt.subplots()
+    common.line, = common.axes.plot(*args, **kwargs)
+    common.line.更新X軸資料 = common.line.set_xdata
+    common.line.更新Y軸資料 = common.line.set_ydata
+    common.is_animation_setup = True
+
+def 開始折線圖動畫():
+    if common.is_animation_setup:
+        if hasattr(__main__, '動畫更新時'):
+            common.animation = FuncAnimation(common.figure, __main__.動畫更新時, fargs=(common.line,), interval=50) 
+        else:
+           print('<< 未定義 動畫更新時 >>')    
+    else:
+        print('<< 未設置動畫 >>')
 
 if __name__ == '__main__' :
     pass
